@@ -1,5 +1,6 @@
 import {it, describe} from 'node:test';
 import assert from 'node:assert';
+import {functionThatThrowsAnError, functionThatDoesNotThrowAnError} from './service.mjs';
 
 describe("Assertion", () => {
 
@@ -21,18 +22,37 @@ describe("Assertion", () => {
     });
 
     it("deep equal", () => {
-      const result = { a: 1, b: { c: 2 }};
-      const expected = { a: 1, b: { c: 2 }};
+      const result = {a: 1, b: {c: 2}};
+      const expected = {a: 1, b: {c: 2}};
       assert.deepStrictEqual(result, expected);
     });
 
     it("not deep equal", () => {
-      const result = { a: 1, b: { c: 2 }};
-      const expected = { a: 1, b: { c: 3 }};
+      const result = {a: 1, b: {c: 2}};
+      const expected = {a: 1, b: {c: 3}};
       assert.notDeepStrictEqual(result, expected);
     });
 
     // deepStrictEqual notDeepStrictEqual
+  })
 
+
+  describe("error", () => {
+    it("throws error", () => {
+      function errorThrowingWrapper() {
+        functionThatThrowsAnError();
+      }
+
+      assert.throws(errorThrowingWrapper);
+      assert.throws(errorThrowingWrapper, {message:"Custom error message"});
+    });
+
+    it("does not throw error", () => {
+      function errorThrowingWrapper() {
+        functionThatDoesNotThrowAnError();
+      }
+
+      assert.doesNotThrow(errorThrowingWrapper);
+    });
   })
 })
