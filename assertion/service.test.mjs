@@ -1,6 +1,6 @@
 import {it, describe} from 'node:test';
 import assert from 'node:assert';
-import {functionThatThrowsAnError, functionThatDoesNotThrowAnError} from './service.mjs';
+import {functionThatThrowsAnError, functionThatDoesNotThrowAnError, asyncFunctionThatRejects} from './service.mjs';
 
 describe("Assertion", () => {
 
@@ -44,7 +44,7 @@ describe("Assertion", () => {
       }
 
       assert.throws(errorThrowingWrapper);
-      assert.throws(errorThrowingWrapper, {message:"Custom error message"});
+      assert.throws(errorThrowingWrapper, {message: "Custom error message"});
     });
 
     it("does not throw error", () => {
@@ -56,12 +56,19 @@ describe("Assertion", () => {
     });
   })
 
-
   describe("strings", () => {
     it("matching", () => {
       const inputString = "test";
       const testRegex = /^test$/;
       assert.match(inputString, testRegex);
+    });
+  })
+
+  describe("async rejecting", () => {
+    it("rejects promise", () => {
+      assert.rejects(
+        asyncFunctionThatRejects, { error: "Async Reject Error"}
+      )
     });
   })
 })
