@@ -55,4 +55,13 @@ describe("Assertion", () => {
       assert.doesNotThrow(errorThrowingWrapper);
     });
   })
+
+
+  describe("strings", () => {
+    it("matching", () => {
+      const inputString = "test";
+      const testRegex = /^test$/;
+      assert.match(inputString, testRegex);
+    });
+  })
 })
