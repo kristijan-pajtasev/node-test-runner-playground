@@ -36,7 +36,6 @@ describe("Assertion", () => {
     // deepStrictEqual notDeepStrictEqual
   })
 
-
   describe("error", () => {
     it("throws error", () => {
       function errorThrowingWrapper() {
